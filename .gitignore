@@ -1,7 +1,9 @@
 node_modules
+dist
 start_fin
 basic_fin
 utility_fin
 transform_fin
 geometry_fin
-dist
+controls_fin
+material_fin
