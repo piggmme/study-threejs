@@ -7,3 +7,5 @@ transform_fin
 geometry_fin
 controls_fin
 material_fin
+light_fin
+raycaster_fin
