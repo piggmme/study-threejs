@@ -58,13 +58,7 @@ export const mat = {
   }),
 };
 
-const normalSound = new Audio();
-normalSound.src = "/sounds/Nomal.mp3";
-
-const strongSound = new Audio();
-strongSound.src = "/sounds/Strong.mp3";
-
 export const sounds = {
-  normal: normalSound,
-  strong: strongSound,
+  normal: new Audio("/sounds/Normal.mp3"),
+  strong: new Audio("/sounds/Strong.mp3"),
 };
