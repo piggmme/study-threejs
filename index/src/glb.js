@@ -27,7 +27,8 @@ export default function init() {
     0.1,
     1000
   );
-  camera.position.set(-2, 3, 6);
+  camera.position.set(-6, 4, 8);
+  camera.lookAt(new THREE.Vector3(0, 6, 0));
   scene.add(camera);
 
   // Light
@@ -87,6 +88,68 @@ export default function init() {
     miffy.position.set(1, 0, 0);
     miffy.castShadow = true;
     scene.add(miffy);
+  });
+
+  // 아이스크림
+  gltfLoader.load("/models/orange.glb", (gltf) => {
+    // shadow
+    gltf.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+
+    const meshs = gltf.scene.children;
+    const orange = new THREE.Group();
+
+    for (let i = meshs.length; i >= 0; i--) {
+      orange.add(meshs[i]);
+    }
+
+    orange.position.set(2.5, 2.45, -3);
+    orange.castShadow = true;
+    scene.add(orange);
+  });
+  gltfLoader.load("/models/merona.glb", (gltf) => {
+    // shadow
+    gltf.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+
+    const meshs = gltf.scene.children;
+    const orange = new THREE.Group();
+
+    for (let i = meshs.length; i >= 0; i--) {
+      orange.add(meshs[i]);
+    }
+
+    orange.position.set(0, 2.45, -3);
+    orange.castShadow = true;
+    scene.add(orange);
+  });
+  gltfLoader.load("/models/jawsbar.glb", (gltf) => {
+    // shadow
+    gltf.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+
+    const meshs = gltf.scene.children;
+    const orange = new THREE.Group();
+
+    for (let i = meshs.length; i >= 0; i--) {
+      orange.add(meshs[i]);
+    }
+
+    orange.position.set(-2.5, 2.45, -3);
+    orange.castShadow = true;
+    scene.add(orange);
   });
 
   // Mesh
