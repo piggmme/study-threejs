@@ -1,21 +1,41 @@
-import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
+import { OrbitControls } from '@react-three/drei'
+import * as THREE from 'three'
 
 export default function MyElement3D() {
   const refMesh = useRef()
-  useFrame((state, delta) => {
-    // 매 프레임이 렌더 되기 전에 호출되는 함수
-    refMesh.current.rotation.y += delta
-  })
-
+  
   return (
     <>
       <directionalLight position={[1,1,1]} />
 
-      <mesh ref={refMesh} rotation={[0, 45*Math.PI/180, 0]}>
+      <axesHelper scale={10} /> {/* world 좌표계 */}
+      <OrbitControls />
+
+      <mesh 
+        ref={refMesh} 
+        position={[0,2,0]} 
+        rotation={[0, 0, THREE.MathUtils.degToRad(45)]} 
+        scale={[2,1,1]}
+      >
         <boxGeometry />
-        <meshStandardMaterial color='#e67e22'/>
+        <meshStandardMaterial 
+          color='#e67e22' 
+          opacity={0.5} 
+          transparent={true} 
+        />
+        <axesHelper /> 
+
+        <mesh
+          scale={0.1}
+          position-y={2}
+        >
+            <sphereGeometry />
+            <meshStandardMaterial color='red' />
+            <axesHelper scale={5} /> 
+        </mesh>
       </mesh>
+        
     </>
   )
-}
+} 
