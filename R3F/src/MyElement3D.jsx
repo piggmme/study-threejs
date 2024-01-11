@@ -1,9 +1,14 @@
 import { useRef } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
+import { useFrame } from '@react-three/fiber'
 
 export default function MyElement3D() {
   const refMesh = useRef()
+
+  useFrame((_, delta) => {
+    refMesh.current.rotation.y += delta
+  })
   
   return (
     <>
