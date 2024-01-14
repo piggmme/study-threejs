@@ -7,18 +7,19 @@ export default function MyElement3D() {
   const refMesh = useRef()
   const refWireMesh = useRef()
 
-  const {xSize,ySize,zSize,xSegments,ySegments,zSegments} = useControls({
-    xSize: {value: 1, min: 0.1, max: 5, step: 0.01},
-    ySize: {value: 1, min: 0.1, max: 5, step: 0.01},
-    zSize: {value: 1, min: 0.1, max: 5, step: 0.01},
-    xSegments: {value: 1, min: 1, max: 10, step: 1},
-    ySegments: {value: 1, min: 1, max: 10, step: 1},
-    zSegments: {value: 1, min: 1, max: 10, step: 1},
+  const {radius,widthSegments,heightSegments,phiStart,phiLength,thetaStart,thetaLength} = useControls({
+    radius: {value: 1, min: 0.1, max: 5, step: 0.01},
+    widthSegments: {value: 32, min: 3, max: 256, step: 1},
+    heightSegments: {value: 32, min: 2, max: 256, step: 1},
+    phiStart: {value: 0, min: 0, max: 2*Math.PI, step: 0.01},
+    phiLength: {value: 2*Math.PI, min: 0, max: 2*Math.PI, step: 0.01},
+    thetaStart: {value: 0, min: 0, max: Math.PI, step: 0.01},
+    thetaLength: {value: Math.PI, min: 0, max: Math.PI, step: 0.01},
   })
 
   useEffect(()=> {
     refWireMesh.current.geometry = refMesh.current.geometry
-  }, [xSize,ySize,zSize,xSegments,ySegments,zSegments])
+  }, [radius,widthSegments,heightSegments,phiStart,phiLength])
 
   return (
     <>
@@ -29,8 +30,13 @@ export default function MyElement3D() {
       <OrbitControls />
 
       <mesh ref={refMesh}>
-        {/* new THREE.BoxGeometry(xSize,ySize,zSize,xSegments,ySegments,zSegments) 와 동일하다 */}
-        <boxGeometry args={[xSize,ySize,zSize,xSegments,ySegments,zSegments]} />
+        <sphereGeometry 
+          args={[
+            radius, widthSegments, heightSegments, 
+            phiStart, phiLength,
+            thetaStart, thetaLength
+          ]}
+        />
         <meshStandardMaterial color='#1abc9c'/>
       </mesh>
 
