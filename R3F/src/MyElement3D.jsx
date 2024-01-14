@@ -1,5 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
+import {useControls} from 'leva'
 import * as THREE from 'three'
 
 export default function MyElement3D() {
@@ -8,6 +9,21 @@ export default function MyElement3D() {
 
   useEffect(()=>{
     mesh2.current.material = mesh1.current.material
+  })
+
+  const {roughness,metalness} =useControls({
+    roughness: {
+      value: 0,
+      min: 0,
+      max: 1,
+      step: 0.01,
+    },
+    metalness: {
+      value: 0,
+      min: 0,
+      max: 1,
+      step: 0.01,
+    },
   })
 
   return (
@@ -22,7 +38,7 @@ export default function MyElement3D() {
 
       <mesh ref={mesh1} position={[0.7,0,0]}>
         <boxGeometry /> 
-        <meshPhongMaterial 
+        <meshStandardMaterial 
           visible={true}
 
           transparent={false}
@@ -40,10 +56,10 @@ export default function MyElement3D() {
           wireframe={false}
 
           color="#ff0000"
-          // emissive="#000000" // 매쉬가 내는 빛. 기본값은 블랙
-          specular={0xffff00} // 광원에 의해 반사하는 빛. 기본값은 회색
-          shininess={50} // 광택. 기본값은 30
-          flatShading={true} // 평면 쉐이딩. 기본값은 false
+          emissive="#000000" // 매쉬가 내는 빛. 기본값은 블랙
+          roughness={roughness} // 거칠기
+          metalness={metalness} // 금속감
+          flatShading={false} // 평면 쉐이딩. 기본값은 false
         />
       </mesh>
 
