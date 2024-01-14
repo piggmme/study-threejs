@@ -1,49 +1,50 @@
 import { OrbitControls } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
-import {useControls} from 'leva'
-
+import * as THREE from 'three'
 
 export default function MyElement3D() {
-  const refMesh = useRef()
-  const refWireMesh = useRef()
+  const mesh1 = useRef()
+  const mesh2 = useRef()
 
-  const {topRadius,bottomRadius,height,radialSegments,heightSegments,bOpen,thetaStart,thetaLength} = useControls({
-    topRadius: {value: 1, min: 0.1, max: 5, step: 0.01},
-    bottomRadius: {value: 1, min: 0.1, max: 5, step: 0.01},
-    height: {value: 1, min: 0.1, max: 5, step: 0.01},
-    radialSegments: {value: 32, min: 3, max: 256, step: 1},
-    heightSegments: {value: 1, min: 1, max: 256, step: 1},
-    bOpen: {value: false},
-    thetaStart: {value: 0, min: 0, max: 2*Math.PI, step: 0.01},
-    thetaLength: {value: 2*Math.PI, min: 0, max: 2*Math.PI, step: 0.01},
+  useEffect(()=>{
+    mesh2.current.material = mesh1.current.material
   })
-
-  useEffect(()=> {
-    refWireMesh.current.geometry = refMesh.current.geometry
-  }, [topRadius,bottomRadius,height,radialSegments,heightSegments,bOpen,thetaStart,thetaLength])
 
   return (
     <>
-      <directionalLight position={[1,1,1]} />
-      <ambientLight intensity={0.1} />
-
-      <axesHelper scale={10} /> {/* world 좌표계 */}
       <OrbitControls />
 
-      <mesh ref={refMesh}>
-        <cylinderGeometry 
-          args={[
-            topRadius,bottomRadius,height,
-            radialSegments,heightSegments,
-            bOpen,
-            thetaStart,thetaLength
-          ]}
+      <directionalLight position={[0,1,0]} />
+      <directionalLight position={[1,2,8]} intensity={0.7} />
+      <ambientLight intensity={0.2} />
+
+      <axesHelper scale={10} /> {/* world 좌표계 */}
+
+      <mesh ref={mesh1} position={[0.7,0,0]}>
+        <boxGeometry /> 
+        <meshBasicMaterial 
+          visible={true}
+
+          transparent={true}
+          opacity={0.5}
+
+          // depth buffer 
+          depthTest={true} 
+          depthWrite={true}
+
+          // rendering 
+          side={THREE.FrontSide} // 앞면만
+          // side={THREE.BackSide} // 뒷면만
+          // side={THREE.DoubleSide} // 양면
+
+          wireframe={false}
+
+          color="yellow"
         />
-        <meshStandardMaterial color='#1abc9c'/>
       </mesh>
 
-      <mesh ref={refWireMesh}>
-        <meshStandardMaterial emissive="yellow" wireframe={true} />
+      <mesh ref={mesh2} position={[-0.7,0,0]}>
+        <torusGeometry args={[0.5,0.2]} /> 
       </mesh>
     </>
   )
