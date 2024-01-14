@@ -29,6 +29,7 @@ export default function MyElement3D() {
       <OrbitControls />
 
       <mesh ref={refMesh}>
+        {/* new THREE.BoxGeometry(xSize,ySize,zSize,xSegments,ySegments,zSegments) 와 동일하다 */}
         <boxGeometry args={[xSize,ySize,zSize,xSegments,ySegments,zSegments]} />
         <meshStandardMaterial color='#1abc9c'/>
       </mesh>
