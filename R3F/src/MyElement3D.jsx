@@ -22,7 +22,7 @@ export default function MyElement3D() {
 
       <mesh ref={mesh1} position={[0.7,0,0]}>
         <boxGeometry /> 
-        <meshLambertMaterial 
+        <meshPhongMaterial 
           visible={true}
 
           transparent={false}
@@ -33,14 +33,17 @@ export default function MyElement3D() {
           depthWrite={true}
 
           // rendering 
-          // side={THREE.FrontSide} // 앞면만
+          side={THREE.FrontSide} // 앞면만
           // side={THREE.BackSide} // 뒷면만
-          side={THREE.DoubleSide} // 양면
+          // side={THREE.DoubleSide} // 양면
 
           wireframe={false}
 
-          color="#d25383"
-          emissive="#666600" // 매쉬가 내는 빛. 기본값은 블랙
+          color="#ff0000"
+          // emissive="#000000" // 매쉬가 내는 빛. 기본값은 블랙
+          specular={0xffff00} // 광원에 의해 반사하는 빛. 기본값은 회색
+          shininess={50} // 광택. 기본값은 30
+          flatShading={true} // 평면 쉐이딩. 기본값은 false
         />
       </mesh>
 
