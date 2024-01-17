@@ -5,7 +5,7 @@ import MyElement3D from './MyElement3D'
 function App() {
   return (
     <>
-      <Canvas>
+      <Canvas camera={{ near: 3.5, far: 6 }}>
         <MyElement3D />
       </Canvas>
     </>
