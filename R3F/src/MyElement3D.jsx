@@ -56,7 +56,7 @@ export default function MyElement3D() {
     mesh2.current.material = mesh1.current.material
   }, [roughness,metalness,clearcoat,clearcoatRoughness,transmission,thickness,ior])
 
-
+  // https://www.youtube.com/watch?v=pDsf-mrjBHo&list=PLe6NQuuFBu7HUeJkowKRkLWwkdOlhwrje&index=7
   return (
     <>
       <OrbitControls />
