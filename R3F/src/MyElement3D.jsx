@@ -1,4 +1,4 @@
-import { OrbitControls, useTexture } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import {useControls} from 'leva'
 import * as THREE from 'three'
@@ -10,9 +10,6 @@ export default function MyElement3D() {
   useEffect(()=>{
     mesh2.current.material = mesh1.current.material
   }, [])
-
-  // matcap 이미지: https://github.com/emmelleppi/matcaps
-  const matcap = useTexture('./images/matcap.png')
 
   return (
     <>
@@ -26,12 +23,11 @@ export default function MyElement3D() {
 
       <mesh ref={mesh1} position={[0.7,0,0]}>
         <torusKnotGeometry args={[0.5,0.15,256,128]} /> 
-        <meshMatcapMaterial matcap={matcap} /> 
+        <meshNormalMaterial /> 
         {/* 
-          https://threejs.org/docs/?q=meshmat#api/en/materials/MeshMatcapMaterial
-          광원이 없어도 물질에 상이 표현되는 재질
-          MeshMatcapMaterial is defined by a MatCap (or Lit Sphere) texture, which encodes the material color and shading.
-          번역: MatCap(또는 Lit Sphere) 텍스처에 의해 정의되는 MeshMatcapMaterial은 재질 색상과 음영을 인코딩합니다.
+          https://threejs.org/docs/?q=meshnormal#api/en/materials/MeshNormalMaterial
+          A material that maps the normal vectors to RGB colors.
+          번역: 법선 벡터를 RGB 색상으로 매핑하는 재질.
         */}
       </mesh>
 
